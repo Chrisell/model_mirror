@@ -47,24 +47,32 @@ module ValidationFormHelper
       when 2
           "parsley-rangelength='[#{validation[:options][:minimum]},#{validation[:options][:maximum]}]'"
       else
-        ' '
+        ''
       end
+      addition += add_message_for_validation(validation)
     end
 
     def validate_numericality(validation)
-      if validation[:options][:only_integer]
+     addition = if validation[:options][:only_integer]
         'parsley-type="digits"'
       else
         'parsley-type="number"'
       end
+      addition += add_message_for_validation(validation)
     end
 
     def validate_presence(validation)
-      'required'
+      addition = 'required'
+      addition += add_message_for_validation(validation)
     end
 
     def validate_format(validation)
-      "parsley-regexp='#{validation[:options][:with]}'" if validation[:options][:with].present?
+      addtion = "parsley-regexp='#{validation[:options][:with]}'" if validation[:options][:with].present?
+      addition += add_message_for_validation(validation)
+    end
+
+    def add_message_for_validation(validation)
+       validation[:options][:message].present? ? " parsley-error-message='#{validation[:options][:message]}'" : ''
     end
 
   end
