@@ -9,8 +9,8 @@ module ValidationFormHelper
           if args[0].present? && args[0].include?(:skip_validations)
             field_label(name, *args) + tag(:br) + super(name, *args)
           else
-            t = Tag.new(name, validators_on(name))
-            field_label(name, *args) + tag(:br) + t.render
+            t = Tag.new(name, validators_on(name),args.extract_options!)
+            field_label(name, *args) + tag(:br) + super(name, t.options)
           end
         end
       end
