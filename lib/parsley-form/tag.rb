@@ -3,16 +3,6 @@ module ValidationFormHelper
 
     attr_accessor :options
 
-    ATTRIBUTE_MAPPING = {
-      length_min:    'parsley-minlength',
-      length_max:    'parsley-maxlength',
-      length_range:  'parsley-rangelength',
-      numericality:  'parsley-type',
-      presence:      'parsley-required',
-      format:        'parsley-regex',
-      error_message: 'parsley-error-message'
-    }
-
     def initialize(model_attribute, validators, options = {})
       @model_attribute, @validators, @options = model_attribute, validators, options
       add_markup_validation
@@ -53,12 +43,12 @@ module ValidationFormHelper
       addition = case validation[:options].length
       when 1
         if validation[:options][:minimum]
-          { ATTRIBUTE_MAPPING[:length_min] => validation[:options][:minimum] }
+          { Settings.config[:length_min] => validation[:options][:minimum] }
         elsif validation[:options][:maximum]
-          { ATTRIBUTE_MAPPING[:length_max] => validation[:options][:maximum] }
+          { Settings.config[:length_max] => validation[:options][:maximum] }
         end
       when 2
-        { ATTRIBUTE_MAPPING[:length_range] => "[#{validation[:options][:minimum]},#{validation[:options][:maximum]}]" }
+        { Settings.config[:length_range] => "[#{validation[:options][:minimum]},#{validation[:options][:maximum]}]" }
       else
         ''
       end
@@ -72,7 +62,7 @@ module ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_numericality(validation)
-      addition = { ATTRIBUTE_MAPPING[:numericality] => validation[:options][:only_integer] ? 'digits' : 'number' }
+      addition = { Settings.config[:numericality] => validation[:options][:only_integer] ? 'digits' : 'number' }
       add_message_for_validation(addition, validation)
     end
 
@@ -83,7 +73,7 @@ module ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_presence(validation)
-      addition = { ATTRIBUTE_MAPPING[:presence] => "true" }
+      addition = { Settings.config[:presence] => "true" }
       add_message_for_validation(addition, validation)
     end
 
@@ -94,7 +84,7 @@ module ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_format(validation)
-      addtion = { ATTRIBUTE_MAPPING[:format] => validation[:options][:with] } if validation[:options][:with].present?
+      addtion = { Settings.config[:format] => validation[:options][:with] } if validation[:options][:with].present?
       add_message_for_validation(addition, validation)
     end
 
@@ -106,7 +96,7 @@ module ValidationFormHelper
   # @return [Hash] HTML option for tag with validation with message
   #
     def add_message_for_validation(addition, validation)
-        addition.merge!({ ATTRIBUTE_MAPPING[:error_message] => validation[:options][:message] }) if validation[:options][:message].present?
+        addition.merge!({ Settings.config[:error_message] => validation[:options][:message] }) if validation[:options][:message].present?
         addition
     end
 
