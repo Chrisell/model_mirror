@@ -1,4 +1,4 @@
-module ValidationFormHelper
+module ModelMirror::ValidationFormHelper
   class ValidationFormBuilder < ActionView::Helpers::FormBuilder
     delegate :content_tag, :tag, to: :@template
     attr_accessor :model, :options

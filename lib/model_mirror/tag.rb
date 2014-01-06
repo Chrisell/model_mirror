@@ -1,4 +1,4 @@
-module ValidationFormHelper
+module ModelMirror::ValidationFormHelper
   class Tag < ActionView::Helpers::FormBuilder
 
     attr_accessor :options
@@ -28,6 +28,7 @@ module ValidationFormHelper
             ''
           end
       end
+      @options.merge!('parsley-trigger' => "focusout")
       @options.merge!(validations)
     end
 
@@ -43,12 +44,12 @@ module ValidationFormHelper
       addition = case validation[:options].length
       when 1
         if validation[:options][:minimum]
-          { Settings.config[:length_min] => validation[:options][:minimum] }
+          { ModelMirror::Settings.config[:length_min] => validation[:options][:minimum] }
         elsif validation[:options][:maximum]
-          { Settings.config[:length_max] => validation[:options][:maximum] }
+          { ModelMirror::Settings.config[:length_max] => validation[:options][:maximum] }
         end
       when 2
-        { Settings.config[:length_range] => "[#{validation[:options][:minimum]},#{validation[:options][:maximum]}]" }
+        { ModelMirror::Settings.config[:length_range] => "[#{validation[:options][:minimum]},#{validation[:options][:maximum]}]" }
       else
         ''
       end
@@ -62,7 +63,7 @@ module ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_numericality(validation)
-      addition = { Settings.config[:numericality] => validation[:options][:only_integer] ? 'digits' : 'number' }
+      addition = { ModelMirror::Settings.config[:numericality] => validation[:options][:only_integer] ? 'digits' : 'number' }
       add_message_for_validation(addition, validation)
     end
 
@@ -73,7 +74,7 @@ module ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_presence(validation)
-      addition = { Settings.config[:presence] => "true" }
+      addition = { ModelMirror::Settings.config[:presence] => "true" }
       add_message_for_validation(addition, validation)
     end
 
@@ -84,7 +85,7 @@ module ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_format(validation)
-      addtion = { Settings.config[:format] => validation[:options][:with] } if validation[:options][:with].present?
+      addition = { ModelMirror::Settings.config[:format] => validation[:options][:with] } if validation[:options][:with].present?
       add_message_for_validation(addition, validation)
     end
 
@@ -96,7 +97,7 @@ module ValidationFormHelper
   # @return [Hash] HTML option for tag with validation with message
   #
     def add_message_for_validation(addition, validation)
-        addition.merge!({ Settings.config[:error_message] => validation[:options][:message] }) if validation[:options][:message].present?
+        addition.merge!({ ModelMirror::Settings.config[:error_message] => validation[:options][:message] }) if validation[:options][:message].present?
         addition
     end
 

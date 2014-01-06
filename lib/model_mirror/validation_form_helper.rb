@@ -1,4 +1,4 @@
-module ValidationFormHelper
+module ModelMirror::ValidationFormHelper
   def validation_form_for(object, options = {}, &block)
     options[:builder] = ValidationFormBuilder
     options[:html] ||= {}
@@ -8,5 +8,5 @@ module ValidationFormHelper
 end
 
 ActionView::Base.class_eval do
-  include ValidationFormHelper
+  include ModelMirror::ValidationFormHelper
 end
