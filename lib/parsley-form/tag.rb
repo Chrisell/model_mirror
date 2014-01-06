@@ -59,7 +59,7 @@ module ValidationFormHelper
     end
 
     def validate_presence(validation)
-      addition = { 'required' => true }
+      addition = { 'parsley-required' => "true" }
       add_message_for_validation(addition, validation)
     end
 
