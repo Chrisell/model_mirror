@@ -3,11 +3,6 @@ module ValidationFormHelper
 
     attr_accessor :options
 
-    TYPE_MAPPING = {
-      string: 'text',
-      boolean: 'checkbox'
-    }
-
     ATTRIBUTE_MAPPING = {
       length_min:    'parsley-minlength',
       length_max:    'parsley-maxlength',
