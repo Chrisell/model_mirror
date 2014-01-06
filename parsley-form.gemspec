@@ -5,7 +5,7 @@ require 'parsley-form/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "parsley-form"
-  gem.version       = Parsley::Rails::VERSION
+  gem.version       = ParsleyForm::Rails::VERSION
   gem.authors       = ["Chris Ell"]
   gem.email         = ["chris@ellbot.com"]
   gem.description   = %q{Rails Forms for Parsley.js}
