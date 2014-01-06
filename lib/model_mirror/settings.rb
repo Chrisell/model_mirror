@@ -1,22 +1,13 @@
 module ModelMirror
   module Settings
     extend self
-  # Configuration defaults
-    @config = {
-                length_min:    'parsley-minlength',
-                length_max:    'parsley-maxlength',
-                length_range:  'parsley-rangelength',
-                numericality:  'parsley-type',
-                presence:      'parsley-required',
-                format:        'parsley-regex',
-                error_message: 'parsley-error-message'
-              }
-
-    @valid_config_keys = @config.keys
-
+     # Configuration defaults
     # Configure through hash
     def self.configure(opts = {})
-      opts.each {|k,v| @config[k.to_sym] = v if @valid_config_keys.include? k.to_sym}
+      @config ||= {}
+      opts.each do |k,v| 
+        @config[k.to_sym] = v
+      end
     end
 
     # Configure through yaml file

@@ -1,4 +1,4 @@
-ModelMirror::Settings.configure do |config|
+ModelMirror::Settings.configure({
   config.length_min =    'parsley-minlength'
   config.length_max =    'parsley-maxlength'
   config.length_range =  'parsley-rangelength'
@@ -6,4 +6,4 @@ ModelMirror::Settings.configure do |config|
   config.presence =      'parsley-required'
   config.format =        'parsley-regex'
   config.error_message = 'parsley-error-message'
-end
+})
