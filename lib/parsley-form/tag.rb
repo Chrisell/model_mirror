@@ -1,7 +1,7 @@
 module ValidationFormHelper
   class Tag < ActionView::Helpers::FormBuilder
 
-    attr_accessor :model_attribute, :validators, :options
+    attr_accessor :options
 
     TYPE_MAPPING = {
       string: 'text',
