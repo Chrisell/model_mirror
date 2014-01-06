@@ -16,10 +16,6 @@ module ValidationFormHelper
       end
     end
 
-    def render
-      content_tag :form
-    end
-
     def validators_on(attribute)
       object.class.validators_on(attribute).map { |e| { type: e, options: e.options } }
     end
