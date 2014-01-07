@@ -1,3 +1,5 @@
+# This is the default settings for the gem. If you would prefer to configure through a YAML file, comment out this set and uncomment the configuration below.
+
 ModelMirror::Settings.configure({
   # ActiveModel::Validations::LengthValidator { minimum: x }
   length_min:    'parsley-minlength',
@@ -14,3 +16,8 @@ ModelMirror::Settings.configure({
   # Works with any { message: 'foo' } option on validators
   error_message: 'parsley-error-message'
 })
+
+# Uncomment this to allow for local YAML configuration instead of hash configuration.
+# Replace path_to_yaml_file with the location of your config
+#
+# ModelMirror::Settings.configure_with(path_to_yaml_file)
