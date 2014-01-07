@@ -1,16 +1,20 @@
 module ModelMirror
   module Settings
     extend self
-     # Configuration defaults
-    # Configure through hash
+
+    # Configures the default settings
+    # @param [Hash] Hash of desired overrides
+    #
     def self.configure(opts = {})
       @config ||= {}
-      opts.each do |k,v| 
+      opts.each do |k,v|
         @config[k.to_sym] = v
       end
     end
 
     # Configure through yaml file
+    # @param [String] Path to the YAML file
+    #
     def self.configure_with(path_to_yaml_file)
       begin
         config = YAML::load(IO.read(path_to_yaml_file))
