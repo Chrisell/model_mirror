@@ -17,4 +17,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency("railties", ">= 3.0.0")
+  gem.test_files = Dir.glob("spec/**/*_spec.rb") + %w{spec/spec_helper.rb}
+  gem.add_development_dependency "rspec"
 end

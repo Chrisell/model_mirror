@@ -1,9 +1,9 @@
 ModelMirror::Settings.configure({
-  config.length_min =    'parsley-minlength'
-  config.length_max =    'parsley-maxlength'
-  config.length_range =  'parsley-rangelength'
-  config.numericality =  'parsley-type'
-  config.presence =      'parsley-required'
-  config.format =        'parsley-regex'
-  config.error_message = 'parsley-error-message'
+  length_min:    'parsley-minlength',
+  length_max:    'parsley-maxlength',
+  length_range:  'parsley-rangelength',
+  numericality:  'parsley-type',
+  presence:      'parsley-required',
+  format:        'parsley-regex',
+  error_message: 'parsley-error-message'
 })
