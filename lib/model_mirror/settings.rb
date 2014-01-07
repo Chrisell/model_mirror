@@ -6,8 +6,12 @@ module ModelMirror
     # @param [Hash] Hash of desired overrides
     #
     def self.configure(opts = {})
+      @prefix ||= {}
+      opts[:prefix].each do |k,v|
+        @prefix[k.to_sym] = v
+      end
       @config ||= {}
-      opts.each do |k,v|
+      opts[:config].each do |k,v|
         @config[k.to_sym] = v
       end
     end
@@ -31,6 +35,10 @@ module ModelMirror
 
     def self.config
       @config
+    end
+
+    def self.prefix
+      @prefix
     end
 
   end

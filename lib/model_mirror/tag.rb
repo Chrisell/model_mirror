@@ -8,7 +8,6 @@ module ModelMirror::ValidationFormHelper
       add_markup_validation
     end
 
-    #
     # Loops through validations passed to the Tag, collects them into a hash, then
     # merges into the @options variable.
     #
@@ -34,62 +33,61 @@ module ModelMirror::ValidationFormHelper
 
   private
 
-  #
   # Validates length of an attribute
   #
   # @param [ActiveModel::Validations::LengthValidator]
   # @return [Hash] HTML option for tag with validation
   #
     def validate_length(validation)
-      addition = case validation[:options].length
-      when 1
-        if validation[:options][:minimum]
-          { ModelMirror::Settings.config[:length_min] => validation[:options][:minimum] }
-        elsif validation[:options][:maximum]
-          { ModelMirror::Settings.config[:length_max] => validation[:options][:maximum] }
-        end
-      when 2
-        { ModelMirror::Settings.config[:length_range] => "[#{validation[:options][:minimum]},#{validation[:options][:maximum]}]" }
+      if ModelMirror::Settings.config[:use_html5]
+        addition = { 'maxlength' => validation[:options][:maximum] }
       else
-        ''
+        addition = case validation[:options].length
+        when 1
+          if validation[:options][:minimum]
+            { ModelMirror::Settings.prefix[:length_min] => validation[:options][:minimum] }
+          elsif validation[:options][:maximum]
+            { ModelMirror::Settings.prefix[:length_max] => validation[:options][:maximum] }
+          end
+        when 2
+          { ModelMirror::Settings.prefix[:length_range] => "[#{validation[:options][:minimum]},#{validation[:options][:maximum]}]" }
+        else
+          ''
+        end
       end
       add_message_for_validation(addition, validation)
     end
 
-  #
   # Validates numericality of an attribute
   #
   # @param [ActiveModel::Validations::NumericalityValidator]
   # @return [Hash] HTML option for tag with validation
   #
     def validate_numericality(validation)
-      addition = { ModelMirror::Settings.config[:numericality] => validation[:options][:only_integer] ? 'digits' : 'number' }
+      addition = { ModelMirror::Settings.prefix[:numericality] => validation[:options][:only_integer] ? 'digits' : 'number' }
       add_message_for_validation(addition, validation)
     end
 
-  #
   # Validates presence of an attribute
   #
   # @param [ActiveModel::Validations::PresenceValidator]
   # @return [Hash] HTML option for tag with validation
   #
     def validate_presence(validation)
-      addition = { ModelMirror::Settings.config[:presence] => "true" }
+      addition = { ModelMirror::Settings.prefix[:presence] => "true" }
       add_message_for_validation(addition, validation)
     end
 
-  #
   # Validates format of an attribute
   #
   # @param [ActiveModel::Validations::FormatValidator]
   # @return [Hash] HTML option for tag with validation
   #
     def validate_format(validation)
-      addition = { ModelMirror::Settings.config[:format] => validation[:options][:with] } if validation[:options][:with].present?
+      addition = { ModelMirror::Settings.prefix[:format] => validation[:options][:with] } if validation[:options][:with].present?
       add_message_for_validation(addition, validation)
     end
 
-  #
   # Adds an optional validation message if it exists in the options of the model's validation.
   #
   # @param [Hash] HTML option for tag with validation
@@ -97,8 +95,8 @@ module ModelMirror::ValidationFormHelper
   # @return [Hash] HTML option for tag with validation with message
   #
     def add_message_for_validation(addition, validation)
-        addition.merge!({ ModelMirror::Settings.config[:error_message] => validation[:options][:message] }) if validation[:options][:message].present?
-        addition
+      addition.merge!({ ModelMirror::Settings.prefix[:error_message] => validation[:options][:message] }) if validation[:options][:message].present?
+      addition
     end
 
   end
