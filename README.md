@@ -1,7 +1,7 @@
-# Parsley Rails Form Builder
+# Model Mirror
 
 ## About
-This gem uses [Parsley-Rails](https://github.com/mekishizufu/parsley-rails) as it's basis for asset pipeline integration and updates for Parsley.js
+Model Mirror aims at removing front-end and back-end duplication. It uses the validation from your model in order to generate the necessary html attributes on your inputs for your front-end validation framework.
 
 ## Usage
 
