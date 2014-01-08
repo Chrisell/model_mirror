@@ -69,7 +69,11 @@ module ModelMirror::ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_presence(validation)
-      addition = { ModelMirror::Settings.prefix[:presence] => "true" }
+      if ModelMirror::Settings.config[:use_html5]
+        additions = { "required" => "required" }
+      else
+        addition = { ModelMirror::Settings.prefix[:presence] => "true" }
+      end
       add_message_for_validation(addition, validation)
     end
 
@@ -79,7 +83,11 @@ module ModelMirror::ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_format(validation)
-      addition = { ModelMirror::Settings.prefix[:format] => validation[:options][:with] } if validation[:options][:with].present?
+      if ModelMirror::Settings.config[:use_html5]
+        addition = { "format" => validation[:options][:with] } if validation[:options][:with].present?
+      else
+        addition = { ModelMirror::Settings.prefix[:format] => validation[:options][:with] } if validation[:options][:with].present?
+      end
       add_message_for_validation(addition, validation)
     end
 
