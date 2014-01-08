@@ -10,7 +10,7 @@ To install, run the following in your terminal from within your Rails applicatio
     rails g model_mirror:install
 This will create a model_mirror.rb file in your config/initializers directory. You can modify this file to change your validation attributes for different ActiveModel::Validatior subclasses. If you prefer, you can also create a YAML file in the same location named model_mirror.yml and modify the model_mirror.rb file accordingly to load that instead.
 
-If you modify the config to use use_html5: true, the prefixes will not be used in situations where HTML5 is aplicable.
+If you modify the config to use use_html5: true, the prefixes will not be used in situations where HTML5 is applicable.
 
 Add validations in your model as usual. Implement the form by using:
 
