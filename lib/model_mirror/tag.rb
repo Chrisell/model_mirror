@@ -40,20 +40,11 @@ module ModelMirror::ValidationFormHelper
   #
     def validate_length(validation)
       if ModelMirror::Settings.config[:use_html5]
-        addition = { 'maxlength' => validation[:options][:maximum] }
+        addition = { 'maxlength' => validation[:options][:maximum] } if validation[:options][:maximum]
       else
-        addition = case validation[:options].length
-        when 1
-          if validation[:options][:minimum]
-            { ModelMirror::Settings.prefix[:length_min] => validation[:options][:minimum] }
-          elsif validation[:options][:maximum]
-            { ModelMirror::Settings.prefix[:length_max] => validation[:options][:maximum] }
-          end
-        when 2
-          { ModelMirror::Settings.prefix[:length_range] => "[#{validation[:options][:minimum]},#{validation[:options][:maximum]}]" }
-        else
-          ''
-        end
+        addition = {}
+        addition.merge!({ ModelMirror::Settings.prefix[:length_min] => validation[:options][:minimum] }) if validation[:options][:minimum]
+        addition.merge!({ ModelMirror::Settings.prefix[:length_max] => validation[:options][:maximum] }) if validation[:options][:maximum]
       end
       add_message_for_validation(addition, validation)
     end
@@ -64,7 +55,11 @@ module ModelMirror::ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_numericality(validation)
-      addition = { ModelMirror::Settings.prefix[:numericality] => validation[:options][:only_integer] ? 'digits' : 'number' }
+      if ModelMirror::Settings.config[:use_html5] && !validation[:options][:digits]
+        addition = { 'type' => 'number' }
+      else
+        addition = { ModelMirror::Settings.prefix[:numericality] => validation[:options][:only_integer] ? 'digits' : 'number' }
+      end
       add_message_for_validation(addition, validation)
     end
 
