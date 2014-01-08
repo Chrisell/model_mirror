@@ -55,10 +55,10 @@ module ModelMirror::ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_numericality(validation)
-      if ModelMirror::Settings.config[:use_html5] && !validation[:options][:digits]
-        addition = { 'type' => 'number' }
+      addition = if ModelMirror::Settings.config[:use_html5] && !validation[:options][:digits]
+        { 'type' => 'number' }
       else
-        addition = { ModelMirror::Settings.prefix[:numericality] => validation[:options][:only_integer] ? 'digits' : 'number' }
+        { ModelMirror::Settings.prefix[:numericality] => validation[:options][:only_integer] ? 'digits' : 'number' }
       end
       add_message_for_validation(addition, validation)
     end
@@ -69,10 +69,10 @@ module ModelMirror::ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_presence(validation)
-      if ModelMirror::Settings.config[:use_html5]
-        additions = { "required" => "required" }
+      addition = if ModelMirror::Settings.config[:use_html5]
+        { "required" => "required" }
       else
-        addition = { ModelMirror::Settings.prefix[:presence] => "true" }
+        { ModelMirror::Settings.prefix[:presence] => "true" }
       end
       add_message_for_validation(addition, validation)
     end
@@ -83,8 +83,8 @@ module ModelMirror::ValidationFormHelper
   # @return [Hash] HTML option for tag with validation
   #
     def validate_format(validation)
-      if ModelMirror::Settings.config[:use_html5]
-        addition = { "format" => validation[:options][:with] } if validation[:options][:with].present?
+      addition = if ModelMirror::Settings.config[:use_html5]
+        { "format" => validation[:options][:with] } if validation[:options][:with].present?
       else
         addition = { ModelMirror::Settings.prefix[:format] => validation[:options][:with] } if validation[:options][:with].present?
       end
