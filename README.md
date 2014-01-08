@@ -1,7 +1,7 @@
 # Model Mirror
 
 ## About
-Model Mirror aims at removing front-end and back-end duplication. It uses the validation from your model in order to generate the necessary html attributes on your inputs for your front-end validation framework.
+This is my first gem, sp please provide feedback for improvemants and enhancements. Model Mirror aims at removing front-end and back-end duplication. It uses the validation from your model in order to generate the necessary html attributes on your inputs for your front-end validation framework.
 
 ## Usage
 
