@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = ModelMirror::Rails::VERSION
   gem.authors       = ["Chris Ell"]
   gem.email         = ["chris@ellbot.com"]
-  gem.description   = %q{Rails Forms for Parsley.js}
-  gem.summary       = %q{Rails Forms for Parsley.js}
+  gem.description   = %q{Simplify your validation by leveraging model validators.}
+  gem.summary       = %q{Model Mirror will look to the ActiveModel validators you have on a class and use these, in conjunction with a custom form_for tag, to inject the necessary front-end validators.}
   gem.homepage      = "https://github.com/Chrisell/model_mirror"
   gem.license       = "MIT"
 
